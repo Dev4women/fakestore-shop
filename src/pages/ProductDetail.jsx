@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { useCart } from "../context/CartContext";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -37,7 +38,7 @@ function ProductDetail() {
           <p className="description">{product.description}</p>
           <p className="price">${product.price}</p>
           <p className="rating">⭐ {product.rating.rate} ({product.rating.count} reviews)</p>
-          <button onClick={() => addToCart(product)}>Add to Cart</button>
+          <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
         </div>
       </div>
     </div>
