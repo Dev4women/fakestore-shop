@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortOption, setSortOption] = useState("");
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -77,7 +78,7 @@ function Home() {
             </Link>
             <p className="price">${product.price}</p>
             <p className="rating">⭐ {product.rating.rate} ({product.rating.count})</p>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
           </div>
         ))}
       </div>

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useSelector } from "react-redux";
 
 function Checkout() {
-  const { cart } = useCart();
+  const cart = useSelector((state) => state.cart.items);
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
